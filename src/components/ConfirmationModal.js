@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function ConfirmationModal({ isOpen, onCancel, onConfirm }) {
+export default function ConfirmationModal({ isOpen, onClose, onCancel, onConfirm }) {
   if (!isOpen) return null;
 
   return (
@@ -17,54 +17,69 @@ export default function ConfirmationModal({ isOpen, onCancel, onConfirm }) {
           z-index: 1000;
         }
         .cm-modal {
-          width: 90%;
-          max-width: 400px;
+          width: 582px;
+          height: 257px;
           background: #fff;
-          border-radius: 8px;
-          padding: 16px;
-          box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+          border-radius: 2px;
+        }
+        .cm-content {
+          display: flex;
+          flex-direction: column;
+          gap: 12px;
+          padding: 20px 14px;
+          border-bottom: 1px solid #C7E7F1;
         }
         .cm-title {
-          font-size: 1rem;
-          font-weight: bold;
-          margin-bottom: 12px;
-          color: #333;
+          font-size: 14px;
+          line-height: 1.5;
+          font-weight: 700;
+          color: #0A5994;
         }
         .cm-text {
-          font-size: 0.9rem;
-          color: #444;
-          margin-bottom: 20px;
-          line-height: 1.4;
+          font-size: 14px;
+          font-weight: 500;
+          color: #0A5994;
+          line-height: 20px;
         }
         .cm-actions {
           display: flex;
-          gap: 8px;
-          justify-content: flex-end;
+          gap: 20px;
+          justify-content: center;
+          margin-top: 20px;
+          margin-bottom: 30px;
+          padding: 0 40px;
         }
         .cm-button {
           flex: 1;
-          padding: 8px 12px;
+          padding: 16px 12px;
           border: none;
           border-radius: 4px;
           cursor: pointer;
-          font-size: 0.9rem;
+          width: 241px;
+          height: 50px;
         }
         .cm-button.cancel {
-          background: #f0f0f0;
-          color: #333;
+          background: #BED5E5;
+          color: #4E5E74;
         }
         .cm-button.confirm {
-          background: #00629b;
+          background: #005994;
           color: #fff;
         }
       `}</style>
 
-      <div className="cm-overlay" onClick={onCancel}>
+      <div className="cm-overlay" onClick={onClose}>
         <div className="cm-modal" onClick={e => e.stopPropagation()}>
-          <div className="cm-title">Đừng bỏ lỡ cơ hội bảo vệ nhân viên của bạn!</div>
-          <div className="cm-text">
-            Quý khách chưa chọn mua Bảo hiểm Tai nạn Lao động, sản phẩm giúp bảo vệ đội ngũ nhân sự với chi phí hợp lý. Đặc biệt, tháng đầu tiên hoàn toàn MIỄN PHÍ!<br/><br/>
-            Quý khách muốn tiếp tục giao dịch chi lương mà <strong>không mua bảo hiểm</strong> hay tiếp tục Chi lương và <strong>mua bảo hiểm ngay</strong>?
+          <div className='cm-content'>
+            <div className="cm-title">Đừng bỏ lỡ cơ hội bảo vệ nhân viên của bạn!</div>
+            <div className="cm-text">
+              Quý khách chưa chọn mua Bảo hiểm Tai nạn Người lao động, sản phẩm giúp bảo vệ
+              <br />đội ngũ nhân sự với chi phí hợp lý. Đặc biệt, tháng đầu tiên hoàn toàn MIỄN PHÍ
+            </div>
+            <div className="cm-text">
+              Quý khách muốn tiếp tục giao dịch chi lương mà <strong>không mua bảo hiểm</strong> hay tiếp tục
+              <br />Chi lương và <strong>mua bảo hiểm ngay</strong>?
+            </div>
           </div>
           <div className="cm-actions">
             <button className="cm-button cancel" onClick={onCancel}>

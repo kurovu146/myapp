@@ -2,8 +2,7 @@
 import React, { useState } from 'react';
 import ConfirmationModal from './components/ConfirmationModal';
 import InsuranceOffer    from './components/InsuranceOffer';
-import TransferStepInformation from './components/TransferStepInformation';
-// import PayrollForm      from './components/PayrollForm'; // nếu bạn đã có
+import InsuranceDetail   from './components/InsuranceDetail';
 
 function App() {
   // state để bật/tắt modal
@@ -17,14 +16,31 @@ function App() {
   const handleCancel = () => {
     setIsModalOpen(false);
     // TODO: tiếp tục quy trình chi lương mà không mua bảo hiểm
-    console.log('User chọn không mua bảo hiểm, tiếp tục chi lương');
+    alert('User chọn không mua bảo hiểm, tiếp tục chi lương');
   };
 
   const handleConfirm = () => {
     setIsModalOpen(false);
     // TODO: điều hướng hoặc mở phần mua bảo hiểm
-    console.log('User chọn mua bảo hiểm, chuyển sang trang mua');
+    alert('User chọn mua bảo hiểm, chuyển sang trang mua');
   };
+
+  const handleClose = () => {
+    setIsModalOpen(false);
+  };
+  const onBackStep = () => {
+    // TODO: quay lại bước trước
+    alert('Quay lại bước trước');
+  };
+  const onNextStep = () => {
+    // TODO: chuyển sang bước tiếp theo
+    alert('Chuyển sang bước tiếp theo');
+  };
+  const isEmpty = (data) => !data; // giả sử có dữ liệu
+  const amountFormat = (amount) => new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(amount);
+  const amountToWord = (amount) => {};
+  const language = 'vi'; // giả sử ngôn ngữ là tiếng Việt
+  const uploadInfo = {}; // giả sử có thông tin tải lên
 
   return (
     <div className="App" style={{ padding: 16, fontFamily: 'sans-serif' }}>
@@ -52,9 +68,22 @@ function App() {
       {/* Widget Bảo hiểm */}
       <InsuranceOffer />
 
+        <br></br>
+      {/* Detail Bảo hiểm */}
+      <InsuranceDetail 
+        isEmpty={isEmpty}
+        amountFormat={amountFormat}
+        amountToWord={amountToWord}
+        language={language}
+        uploadInfo={uploadInfo}
+        onBackStep={onBackStep}
+        onNextStep={onNextStep}
+      />
+
       {/* Popup xác nhận */}
       <ConfirmationModal
         isOpen={isModalOpen}
+        onClose={handleClose}
         onCancel={handleCancel}
         onConfirm={handleConfirm}
       />

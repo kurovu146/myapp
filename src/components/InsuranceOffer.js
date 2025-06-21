@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import changeCoin from '../assets/icons/change-coin.png';
 import shieldImg from '../assets/icons/credit-card-shield.png';
 import moneyImg from '../assets/icons/money-tree.png';
 import phoneImg from '../assets/icons/Call.png';
 
-// nếu cần bạn có thể thay bằng fetch từ API
 const data = {
     benefits: [
         {
