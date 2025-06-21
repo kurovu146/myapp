@@ -1,92 +1,76 @@
 // src/App.js
 import React, { useState } from 'react';
-import ConfirmationModal from './components/ConfirmationModal';
+import GenericModal from './components/GenericModal';
 import InsuranceOffer    from './components/InsuranceOffer';
-import InsuranceDetail   from './components/InsuranceDetail';
 
 function App() {
   // state để bật/tắt modal
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  // khi người dùng bấm 'Tiếp tục' ở form lương
-  const handleFormContinue = () => {
-    setIsModalOpen(true);
-  };
-
-  const handleCancel = () => {
-    setIsModalOpen(false);
-    // TODO: tiếp tục quy trình chi lương mà không mua bảo hiểm
-    alert('User chọn không mua bảo hiểm, tiếp tục chi lương');
-  };
-
-  const handleConfirm = () => {
-    setIsModalOpen(false);
-    // TODO: điều hướng hoặc mở phần mua bảo hiểm
-    alert('User chọn mua bảo hiểm, chuyển sang trang mua');
-  };
-
-  const handleClose = () => {
-    setIsModalOpen(false);
-  };
-  const onBackStep = () => {
-    // TODO: quay lại bước trước
-    alert('Quay lại bước trước');
-  };
-  const onNextStep = () => {
-    // TODO: chuyển sang bước tiếp theo
-    alert('Chuyển sang bước tiếp theo');
-  };
-  const isEmpty = (data) => !data; // giả sử có dữ liệu
-  const amountFormat = (amount) => new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(amount);
-  const amountToWord = (amount) => {};
-  const language = 'vi'; // giả sử ngôn ngữ là tiếng Việt
-  const uploadInfo = {}; // giả sử có thông tin tải lên
+  const [showBuyModal1, setShowBuyModal1] = useState(false);
+  const [showBuyModal2, setShowBuyModal2] = useState(false);
 
   return (
     <div className="App" style={{ padding: 16, fontFamily: 'sans-serif' }}>
-      {/* ===== nếu bạn đã có component PayrollForm ===== */}
-      {/*
-      <PayrollForm onContinue={handleFormContinue} />
-      */}
-      
-      {/* ===== hoặc tạm thời một nút giả lập ===== */}
-      <button
-        onClick={handleFormContinue}
-        style={{
-          padding: '8px 16px',
-          background: '#00629b',
-          color: '#fff',
-          border: 'none',
-          borderRadius: 4,
-          cursor: 'pointer',
-          marginBottom: 16
-        }}
-      >
-        Tiếp tục
-      </button>
-      
       {/* Widget Bảo hiểm */}
       <InsuranceOffer />
 
-        <br></br>
-      {/* Detail Bảo hiểm */}
-      <InsuranceDetail 
-        isEmpty={isEmpty}
-        amountFormat={amountFormat}
-        amountToWord={amountToWord}
-        language={language}
-        uploadInfo={uploadInfo}
-        onBackStep={onBackStep}
-        onNextStep={onNextStep}
-      />
+      <button onClick={() => setShowBuyModal1(true)}>Hiện popup 1</button>
+      <button onClick={() => setShowBuyModal2(true)}>Hiện popup 2</button>
 
-      {/* Popup xác nhận */}
-      <ConfirmationModal
-        isOpen={isModalOpen}
-        onClose={handleClose}
-        onCancel={handleCancel}
-        onConfirm={handleConfirm}
-      />
+      <GenericModal
+        isOpen={showBuyModal1}
+        onClose={() => setShowBuyModal1(false)}
+        title="Đừng bỏ lỡ cơ hội bảo vệ nhân viên của bạn!"
+        primaryAction={{
+          text: 'Không mua bảo hiểm',
+          onClick: () => {
+            setShowBuyModal1(false);
+            alert('Tiếp tục giao dịch chi lương mà không mua bảo hiểm');
+          },
+        }}
+        secondaryAction={{
+          text: 'Mua bảo hiểm ngay',
+          onClick: () => {
+            setShowBuyModal1(false);
+            alert('Chuyển đến trang mua bảo hiểm');
+          },
+        }}
+
+      >
+        <div className="cm-text">
+          Quý khách chưa chọn mua Bảo hiểm Tai nạn Người lao động, sản phẩm giúp bảo vệ
+          đội ngũ nhân sự với chi phí hợp lý. Đặc biệt, tháng đầu tiên hoàn toàn MIỄN PHÍ.
+        </div>
+        <div className="cm-text">
+          Quý khách muốn tiếp tục giao dịch chi lương mà <strong>không mua bảo hiểm</strong> hay tiếp tục
+          Chi lương và <strong>mua bảo hiểm ngay</strong>?
+        </div>
+      </GenericModal>
+
+      <GenericModal
+        isOpen={showBuyModal2}
+        onClose={() => setShowBuyModal2(false)}
+        primaryAction={{
+          text: 'Quay lại',
+          onClick: () => {
+            setShowBuyModal2(false);
+            alert('Quay lại');
+          },
+        }}
+        secondaryAction={{
+          text: 'Tiếp tục',
+          onClick: () => {
+            setShowBuyModal2(false);
+            alert('Tiếp tục');
+          },
+        }}
+      >
+        <div className="cm-text">
+          Giao dịch số <strong>F32425626</strong> là giao dịch chi lương kèm mua bảo hiểm.
+        </div>
+        <div className="cm-text">
+          Quý khách vui lòng tiếp tục phê duyệt các giao dịch có cả chi lương kèm mua bảo hiểm hay quay lại danh sách chờ duyệt?
+        </div>
+      </GenericModal> 
 
     </div>
   );

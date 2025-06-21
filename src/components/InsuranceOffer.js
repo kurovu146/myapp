@@ -44,16 +44,16 @@ export default function InsuranceOffer() {
         <>
             <style>{`
         .io-container {
-          width: 951px;
-          height: 300px;
+          max-width: 951px;
+          min-height: 300px;
           border: 1px solid #8cbce6;
           border-radius: 4px;
           font-family: sans-serif;
           background: linear-gradient(180deg, #E8FAFF, #FFFFFF);
         }
         .io-title {
-          width: 286px;
-          height: 36px;
+          max-width: 286px;
+          max-height: 36px;
           font-size: 20px;
           font-weight: 600;
           text-align: center;
@@ -90,7 +90,6 @@ export default function InsuranceOffer() {
         }
         .io-card {
           width: 156px;
-          height: 68px;
           background: #F0F8FA;
           padding: 8px 12px;
           border-radius: 8px;
@@ -147,6 +146,13 @@ export default function InsuranceOffer() {
           color: #073F69;
           line-height: 1.5;
           padding-left: 16px;
+        }
+        @media (max-width: 768px) {
+          .io-text p,
+          .io-text h4 {
+            white-space: normal;   /* cho phép xuống dòng */
+            text-overflow: inherit;
+          }
         }
       `}</style>
 

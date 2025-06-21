@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function ConfirmationModal({ isOpen, onClose, onCancel, onConfirm }) {
+export default function GenericModal({ isOpen, onClose, title, children, primaryAction, secondaryAction }) {
   if (!isOpen) return null;
 
   return (
@@ -17,10 +17,11 @@ export default function ConfirmationModal({ isOpen, onClose, onCancel, onConfirm
           z-index: 1000;
         }
         .cm-modal {
-          width: 582px;
-          height: 257px;
+          width: 90%;
+          max-width: 582px;
           background: #fff;
           border-radius: 2px;
+          box-sizing: border-box;
         }
         .cm-content {
           display: flex;
@@ -45,9 +46,7 @@ export default function ConfirmationModal({ isOpen, onClose, onCancel, onConfirm
           display: flex;
           gap: 20px;
           justify-content: center;
-          margin-top: 20px;
-          margin-bottom: 30px;
-          padding: 0 40px;
+          margin: 20px 40px 30px;
         }
         .cm-button {
           flex: 1;
@@ -55,8 +54,8 @@ export default function ConfirmationModal({ isOpen, onClose, onCancel, onConfirm
           border: none;
           border-radius: 4px;
           cursor: pointer;
-          width: 241px;
-          height: 50px;
+          width: 100%;
+          max-width: 241px;
         }
         .cm-button.cancel {
           background: #BED5E5;
@@ -70,23 +69,26 @@ export default function ConfirmationModal({ isOpen, onClose, onCancel, onConfirm
 
       <div className="cm-overlay" onClick={onClose}>
         <div className="cm-modal" onClick={e => e.stopPropagation()}>
-          <div className='cm-content'>
-            <div className="cm-title">Đừng bỏ lỡ cơ hội bảo vệ nhân viên của bạn!</div>
-            <div className="cm-text">
-              Quý khách chưa chọn mua Bảo hiểm Tai nạn Người lao động, sản phẩm giúp bảo vệ
-              <br />đội ngũ nhân sự với chi phí hợp lý. Đặc biệt, tháng đầu tiên hoàn toàn MIỄN PHÍ
-            </div>
-            <div className="cm-text">
-              Quý khách muốn tiếp tục giao dịch chi lương mà <strong>không mua bảo hiểm</strong> hay tiếp tục
-              <br />Chi lương và <strong>mua bảo hiểm ngay</strong>?
-            </div>
+          <div className="cm-content">
+            {title && (
+              <div className="cm-title">
+                {title}
+              </div>
+            )}
+            {children}
           </div>
           <div className="cm-actions">
-            <button className="cm-button cancel" onClick={onCancel}>
-              Không mua bảo hiểm
+            <button
+              className="cm-button cancel"
+              onClick={primaryAction.onClick}
+            >
+              {primaryAction.text}
             </button>
-            <button className="cm-button confirm" onClick={onConfirm}>
-              Mua bảo hiểm ngay
+            <button 
+              className="cm-button confirm" 
+              onClick={secondaryAction.onClick}
+            >
+              {secondaryAction.text}
             </button>
           </div>
         </div>
